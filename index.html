@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vedant Rakhonde</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar">
+    <span class="nav-logo">VR</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" aria-label="Toggle dark mode" id="themeToggle">
+      <span class="theme-icon">🌙</span>
+    </button>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="about">
+    <div class="hero-content">
+      <div class="hero-avatar">VR</div>
+      <h1 class="hero-name">Vedant Rakhonde</h1>
+      <p class="hero-tagline">CSE + Pre-Med @ Ohio State &nbsp;·&nbsp; AI/ML &nbsp;·&nbsp; Healthcare &nbsp;·&nbsp; Hardware</p>
+      <p class="hero-bio">
+        First-year <b>Honors Computer Science and Engineering</b> student at Ohio State<br>
+        AI Specialization + Pre-Medicine<br><br>
+        I build computational tools at the intersection of medicine and technology, from clinical ML pipelines to biosignal
+        analysis to embedded systems.
+      </p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-outline">Contact Me</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- EXPERIENCE -->
+  <section class="section" id="experience">
+    <div class="container">
+      <h2 class="section-title">Experience</h2>
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <span class="timeline-date">Summer 2025</span>
+            <h3>AI Healthcare Data Science Intern</h3>
+            <p class="timeline-org">Cleveland Clinic Lerner Research Institute</p>
+            <p>Worked under the Healthcare Data Science Pilot Program within the Digestive Disease
+              Institute, collaborating with post-graduate researchers to build large-scale ML models
+              for clinical decision support. Projects included an endoscopy appointment cancellation
+              predictor and an IBD diagnostic classifier using breath biomarker data, within strict
+              HIPAA/PHI compliance.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <span class="timeline-date">Ongoing</span>
+            <h3>Sole Owner / Operator</h3>
+            <p class="timeline-org">ReachFlow AI</p>
+            <p>Building and deploying AI-powered automation systems — chatbots and phone
+              receptionists — for local businesses in the North Royalton area.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <span class="timeline-date">2021 – Present</span>
+            <h3>Independent Electronics Repair</h3>
+            <p class="timeline-org">Self-Employed</p>
+            <p>Repairing and building computers and integrated systems, with a focus on laptop
+              hardware and soldering/de-soldering work.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS CAROUSEL -->
+  <section class="section section-alt" id="projects">
+    <div class="container">
+      <h2 class="section-title">Projects</h2>
+      <div class="carousel-wrapper">
+        <button class="carousel-btn carousel-btn--prev" id="prevBtn" aria-label="Previous">&#8249;</button>
+        <div class="carousel-viewport" id="carouselViewport">
+          <div class="carousel-track" id="carouselTrack">
+
+            <article class="project-card">
+              <div class="card-badge">ML · Healthcare</div>
+              <h3>Endoscopy Cancellation Prediction</h3>
+              <p>Feature engineering and XGBoost-based ML model to predict appointment cancellation
+                probabilities for the Cleveland Clinic Digestive Disease Institute, designed to reduce
+                seven-figure annual losses from no-shows.</p>
+              <div class="card-tags">
+                <span>XGBoost</span><span>Python</span><span>Palantir Foundry</span>
+              </div>
+              <a href="#" class="card-link">View Details →</a>
+            </article>
+
+            <article class="project-card">
+              <div class="card-badge">ML · Diagnostics</div>
+              <h3>IBD Diagnosis AI Model</h3>
+              <p>Classification model identifying Irritable Bowel Disease from 700+ breath-sample
+                biomarkers, achieving 95% diagnostic accuracy. Used PCA to reduce feature count to 99
+                and SMOTE to address class imbalance.</p>
+              <div class="card-tags">
+                <span>scikit-learn</span><span>PCA</span><span>SMOTE</span>
+              </div>
+              <a href="#" class="card-link">View Details →</a>
+            </article>
+
+            <article class="project-card">
+              <div class="card-badge">Full-Stack · AI</div>
+              <h3>Theo Health</h3>
+              <p>AI-powered health journal for chronic disease patients, with voice and text symptom
+                logging and a physician portal. Built the backend and AI layer using Firebase/Firestore,
+                React Native, and the Gemini API.</p>
+              <div class="card-tags">
+                <span>React Native</span><span>Firebase</span><span>Gemini API</span>
+              </div>
+              <a href="#" class="card-link">View Details →</a>
+            </article>
+
+            <article class="project-card">
+              <div class="card-badge">CV · Autonomy</div>
+              <h3>Autonomous Driving Object Detection</h3>
+              <p>Developed an object detection system for still-image autonomous driving scenarios
+                as part of an Inspirit AI program.</p>
+              <div class="card-tags">
+                <span>TensorFlow</span><span>Computer Vision</span><span>Python</span>
+              </div>
+              <a href="#" class="card-link">View Details →</a>
+            </article>
+
+          </div>
+        </div>
+        <button class="carousel-btn carousel-btn--next" id="nextBtn" aria-label="Next">&#8250;</button>
+      </div>
+      <div class="carousel-dots" id="carouselDots"></div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section" id="skills">
+    <div class="container">
+      <h2 class="section-title">Skills</h2>
+      <div class="skills-grid">
+
+        <div class="skill-category">
+          <h3>Languages</h3>
+          <div class="skill-tags">
+            <span>Python</span><span>C</span><span>Rust</span><span>R</span><span>Java</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>ML / Data</h3>
+          <div class="skill-tags">
+            <span>XGBoost</span><span>TensorFlow</span><span>scikit-learn</span>
+            <span>Pandas</span><span>NumPy</span><span>Seaborn</span>
+            <span>PCA</span><span>SMOTE</span><span>t-SNE</span>
+            <span>Propensity Score Matching</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>Platforms &amp; Tools</h3>
+          <div class="skill-tags">
+            <span>Palantir Foundry</span><span>Azure Databricks</span><span>Snowflake</span>
+            <span>Tableau</span><span>Firebase</span><span>Git</span><span>Linux/CLI</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>Hardware</h3>
+          <div class="skill-tags">
+            <span>Soldering / De-soldering</span><span>Electronics Repair</span>
+            <span>Integrated Systems</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="section section-alt" id="education">
+    <div class="container">
+      <h2 class="section-title">Education</h2>
+      <div class="edu-card">
+        <div class="edu-logo">OSU</div>
+        <div class="edu-info">
+          <h3>The Ohio State University</h3>
+          <p class="edu-degree">B.S. Honors Computer Science and Engineering (AI Specialization) + Pre-Medicine Track</p>
+          <p class="edu-year">2025 – 2029</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact">
+    <div class="container contact-container">
+      <h2 class="section-title">Get In Touch</h2>
+      <p class="contact-intro">I'm always open to new opportunities, collaborations, or just a conversation. Feel free to reach out.</p>
+      <div class="contact-cards">
+        <a href="mailto:vedantrakhonde@gmail.com" class="contact-card">
+          <span class="contact-icon">📧</span>
+          <span>vedantrakhonde@gmail.com</span>
+        </a>
+        <a href="https://www.linkedin.com/in/vedant-rakhonde-a5362a314/" target="_blank" rel="noopener" class="contact-card">
+          <span class="contact-icon">🔗</span>
+          <span>LinkedIn</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© 2025 Vedant Rakhonde · Built with ❤️</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
