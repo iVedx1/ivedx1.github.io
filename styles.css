@@ -52,6 +52,18 @@ img { max-width: 100%; display: block; }
 /* ============================================================
    Navbar
    ============================================================ */
+.nav-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--accent);
+  border-radius: 2px;
+  z-index: 101;
+  pointer-events: none;
+}
+
 .navbar {
   position: sticky;
   top: 0;
@@ -66,18 +78,16 @@ img { max-width: 100%; display: block; }
   transition: background var(--transition);
 }
 
-.nav-logo {
-  font-weight: 800;
-  font-size: 1.2rem;
-  color: var(--accent);
-  letter-spacing: .05em;
-  margin-right: auto;
+.nav-spacer {
+  width: 36px;
+  flex-shrink: 0;
 }
 
 .nav-links {
   display: flex;
   list-style: none;
   gap: 1.75rem;
+  margin: 0 auto;
 }
 
 .nav-links a {
@@ -122,6 +132,7 @@ img { max-width: 100%; display: block; }
 
 /* Mobile nav */
 @media (max-width: 700px) {
+  .navbar { justify-content: flex-end; }
   .nav-links {
     display: none;
     position: absolute;
@@ -143,6 +154,7 @@ img { max-width: 100%; display: block; }
    Hero
    ============================================================ */
 .hero {
+  position: relative;               /* anchor for dna-canvas */
   min-height: 90vh;
   display: flex;
   align-items: center;
@@ -151,25 +163,39 @@ img { max-width: 100%; display: block; }
   padding: 4rem 1.5rem;
   background: linear-gradient(160deg, var(--bg) 60%, var(--accent-light) 100%);
   transition: background var(--transition);
+  overflow: hidden;
 }
 
-.hero-content { max-width: 700px; }
+/* ── DNA canvas sits behind everything ── */
+.dna-canvas {
+  position: absolute;
+  inset: 0;                         /* top/right/bottom/left: 0 */
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.40;
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;                       /* stays above the helix */
+  max-width: 720px;
+}
 
 .hero-avatar {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: var(--accent);
-  color: #fff;
-  font-size: 1.6rem;
-  font-weight: 800;
-  display: grid;
-  place-items: center;
+  display: block;
+  object-fit: cover;
   margin: 0 auto 1.5rem;
   box-shadow: 0 4px 20px rgba(37,99,235,.35);
+  zoom: 1.5;
 }
 
 .hero-name {
+  font-family: 'Space Grotesk', sans-serif;
   font-size: clamp(2rem, 5vw, 3.2rem);
   font-weight: 800;
   line-height: 1.15;
@@ -177,6 +203,7 @@ img { max-width: 100%; display: block; }
 }
 
 .hero-tagline {
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 1rem;
   color: var(--text-muted);
   margin-bottom: 1.25rem;
@@ -184,9 +211,10 @@ img { max-width: 100%; display: block; }
 }
 
 .hero-bio {
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 1rem;
   color: var(--text-muted);
-  max-width: 580px;
+  max-width: 600px;
   margin: 0 auto 2rem;
 }
 
@@ -312,7 +340,6 @@ img { max-width: 100%; display: block; }
   will-change: transform;
 }
 
-/* Each card takes full viewport width on mobile, ~50% on tablet, ~33% on desktop */
 .project-card {
   flex: 0 0 calc(100% - 0px);
   background: var(--surface);
@@ -371,7 +398,6 @@ img { max-width: 100%; display: block; }
   align-self: flex-start;
 }
 
-/* Carousel buttons */
 .carousel-btn {
   flex-shrink: 0;
   width: 40px;
@@ -391,7 +417,6 @@ img { max-width: 100%; display: block; }
 .carousel-btn:hover { background: var(--accent); color: #fff; }
 .carousel-btn:disabled { opacity: .35; cursor: default; }
 
-/* Dots */
 .carousel-dots {
   display: flex;
   justify-content: center;
@@ -462,16 +487,17 @@ img { max-width: 100%; display: block; }
   transition: background var(--transition);
 }
 
-.edu-logo {
+.osu-logo {
   width: 64px;
   height: 64px;
   border-radius: 12px;
-  background: var(--accent);
+  background: #BA0C2F;
   color: #fff;
   font-weight: 800;
   font-size: 1rem;
   display: grid;
   place-items: center;
+  
   flex-shrink: 0;
 }
 
@@ -525,9 +551,69 @@ img { max-width: 100%; display: block; }
    Footer
    ============================================================ */
 .footer {
-  text-align: center;
-  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .5rem;
+  padding: 1.5rem 2rem;
   font-size: .85rem;
   color: var(--text-muted);
   border-top: 1px solid var(--border);
+}
+
+.footer-time {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: .85rem;
+}
+
+/* ── Blinking status dot (hero name) ── */
+.status-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #22c55e;
+  vertical-align: middle;
+  margin-left: 4px;
+  position: relative;
+  top: -2px;
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+  0%, 100% { opacity: 1;   box-shadow: 0 0 0 0 rgba(34,197,94,.5); }
+  50%       { opacity: .7; box-shadow: 0 0 0 5px rgba(34,197,94,0); }
+}
+
+/* ── Blinking time dot (footer) ── */
+.time-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.time-dot.active {
+  background: #22c55e;
+  animation: timePulseGreen 2s ease-in-out infinite;
+}
+
+.time-dot.inactive {
+  background: #ef4444;
+  animation: timePulseRed 2s ease-in-out infinite;
+}
+
+@keyframes timePulseGreen {
+  0%, 100% { opacity: 1;   box-shadow: 0 0 0 0 rgba(34,197,94,.5); }
+  50%       { opacity: .7; box-shadow: 0 0 0 4px rgba(34,197,94,0); }
+}
+
+@keyframes timePulseRed {
+  0%, 100% { opacity: 1;   box-shadow: 0 0 0 0 rgba(239,68,68,.5); }
+  50%       { opacity: .7; box-shadow: 0 0 0 4px rgba(239,68,68,0); }
 }
