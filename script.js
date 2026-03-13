@@ -199,7 +199,7 @@ window.addEventListener('DOMContentLoaded', function () {
   const scene  = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(42, mount.clientWidth / mount.clientHeight, 0.1, 100);
   // Camera looks straight down -Z. Helix will be tilted into position.
-  camera.position.set(0, 0, 20);
+  camera.position.set(0, 0, 15);
 
   /* ── Lights ── */
   scene.add(new THREE.AmbientLight(0xffffff, 0.45));

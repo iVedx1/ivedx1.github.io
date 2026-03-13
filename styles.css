@@ -249,6 +249,7 @@ img { max-width: 100%; display: block; }
 .container { max-width: 960px; margin: 0 auto; }
 
 .section-title {
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 1.75rem;
   font-weight: 800;
   margin-bottom: 2.5rem;
@@ -491,13 +492,12 @@ img { max-width: 100%; display: block; }
   width: 64px;
   height: 64px;
   border-radius: 12px;
-  background: #BA0C2F;
+  background: #ba0c2f;
   color: #fff;
   font-weight: 800;
   font-size: 1rem;
   display: grid;
   place-items: center;
-  
   flex-shrink: 0;
 }
 
