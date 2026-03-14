@@ -311,7 +311,7 @@ window.addEventListener('DOMContentLoaded', function () {
   let tick = 0;
   function animate() {
     requestAnimationFrame(animate);
-    tick += 0.006;
+    tick += 0.004;
     spinGroup.rotation.y = tick;
     spinGroup.rotation.x = Math.sin(tick / 2) * 0.1;
     renderer.render(scene, camera);
