@@ -102,6 +102,9 @@ window.addEventListener('DOMContentLoaded', function () {
     const activeLink = document.querySelector(`.nav-links a[href="#${activeId}"]`);
     if (!activeLink) return;
 
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    activeLink.classList.add('active');
+
     const navEl2   = navBar;
     const navRect  = navEl2.getBoundingClientRect();
     const linkRect = activeLink.getBoundingClientRect();
@@ -311,7 +314,7 @@ window.addEventListener('DOMContentLoaded', function () {
   let tick = 0;
   function animate() {
     requestAnimationFrame(animate);
-    tick += 0.006;
+    tick += 0.004;
     spinGroup.rotation.y = tick;
     spinGroup.rotation.x = Math.sin(tick / 2) * 0.1;
     renderer.render(scene, camera);
