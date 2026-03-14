@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vedant Rakhonde</title>
-  <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any">
   <link rel="stylesheet" href="styles.css" />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet" />
   <!-- Set theme before first paint to avoid flash -->
@@ -22,6 +22,11 @@
   <!-- NAV -->
   <nav class="navbar">
     <div class="nav-progress" id="navProgress"></div>
+    <div class="nav-status" id="navStatus" aria-live="polite">
+      <span class="time-dot" id="navTimeDot"></span>
+      <span id="navClockLabel">My Current Time:</span>
+      <span id="navClock">--:--:-- --</span>
+    </div>
     <div class="nav-spacer"></div>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
@@ -45,27 +50,38 @@
       <img class="hero-avatar" src="assets/me.png" alt="Vedant Rakhonde" />
       <h1 class="hero-name">Vedant Rakhonde <span class="status-dot" title="Available"></span></h1>
       <p class="hero-tagline">Honors CSE + Pre-Med @ Ohio State &nbsp;&rarr;&nbsp; AI/ML &nbsp;·&nbsp; Healthcare &nbsp;·&nbsp; Hardware</p>
-      <p class="hero-bio" style="text-align: left;">
-        First-year <b>Honors Computer Science and Engineering</b> student at Ohio State<br>
-        &rarr; AI Specialization + Pre-Medicine<br><br>
-        I build computational tools at the intersection of medicine and technology, from clinical ML pipelines to biosignal
-        analysis to embedded systems.
+      <p class="hero-bio">
+        I build computational tools at the intersection of <b>medicine</b> and <b>technology</b>, from clinical ML pipelines to biosignal
+        analysis to embedded systems.</br></br>
+        When I'm not building, you can find me repairing electronics, listening to Zappa, or outstaying my welcome in a cafe.
       </p>
       <div class="hero-actions">
         <a href="#projects" class="btn btn-primary">View Projects</a>
         <a href="#contact" class="btn btn-outline">Contact Me</a>
       </div>
     </div>
+    <a href="#experience" class="scroll-cue" aria-label="Scroll down to experience">↓</a>
   </header>
 
   <!-- EXPERIENCE -->
   <section class="section" id="experience">
+    <canvas id="experienceDotField" class="experience-dot-field" aria-hidden="true"></canvas>
     <div class="container">
       <h2 class="section-title">Experience</h2>
       <div class="timeline">
 
         <div class="timeline-item">
-          <div class="timeline-dot"></div>
+          <button class="timeline-emoji-btn" type="button" aria-label="Healthcare AI internship">🍿</button>
+          <div class="timeline-card">
+            <span class="timeline-date">Summer 2026</span>
+            <h3>AI Healthcare Data Science Intern</h3>
+            <p class="timeline-org">CYCE ⋅ Cleveland Clinic</p>
+            <p>Round 2!</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <button class="timeline-emoji-btn" type="button" aria-label="Healthcare AI internship">🧠</button>
           <div class="timeline-card">
             <span class="timeline-date">Summer 2025</span>
             <h3>AI Healthcare Data Science Intern</h3>
@@ -79,18 +95,39 @@
         </div>
 
         <div class="timeline-item">
-          <div class="timeline-dot"></div>
+          <button class="timeline-emoji-btn" type="button" aria-label="AI business operator">💪</button>
           <div class="timeline-card">
             <span class="timeline-date">Ongoing</span>
             <h3>Sole Owner / Operator</h3>
             <p class="timeline-org">ReachFlow AI</p>
-            <p>Building and deploying AI-powered automation systems — chatbots and phone
-              receptionists — for local businesses in the North Royalton area.</p>
+            <p>Building and deploying AI-powered automation systems - chatbots and phone
+              receptionists - for local businesses in the North Royalton area.</p>
           </div>
         </div>
 
         <div class="timeline-item">
-          <div class="timeline-dot"></div>
+          <button class="timeline-emoji-btn" type="button" aria-label="Teaching Assistant">📚</button>
+          <div class="timeline-card">
+            <span class="timeline-date">2024-2025</span>
+            <h3>Teaching Assistant</h3>
+            <p class="timeline-org">Business Department ⋅ North Royalton High School</p>
+            <p>Assisted with departmental operations and provided support to students in 
+              their learning for accounting and personal finance courses.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <button class="timeline-emoji-btn" type="button" aria-label="Financials Lead">📈</button>
+          <div class="timeline-card">
+            <span class="timeline-date">2024-2025</span>
+            <h3>Financials Lead</h3>
+            <p class="timeline-org">Royal Rooftop Honey</p>
+            <p>Headed financial planning and analysis for NRHS' very own student-run honey production business.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <button class="timeline-emoji-btn" type="button" aria-label="Electronics repair experience">🛠️</button>
           <div class="timeline-card">
             <span class="timeline-date">2021 – Present</span>
             <h3>Independent Electronics Repair</h3>
@@ -104,79 +141,10 @@
     </div>
   </section>
 
-  <!-- PROJECTS CAROUSEL -->
+  <!-- PROJECTS — rebuilt entirely by script.js coverflow block -->
   <section class="section section-alt" id="projects">
     <div class="container">
-      <h2 class="section-title">Projects</h2>
-      <div class="carousel-wrapper">
-        <button class="carousel-btn carousel-btn--prev" id="prevBtn" aria-label="Previous">&#8249;</button>
-        <div class="carousel-viewport" id="carouselViewport">
-          <div class="carousel-track" id="carouselTrack">
-
-            <article class="project-card">
-              <div class="card-badge">ML · Healthcare</div>
-              <h3>Endoscopy Cancellation Prediction</h3>
-              <p>Feature engineering and XGBoost-based ML model to predict appointment cancellation
-                probabilities for the Cleveland Clinic Digestive Disease Institute, designed to reduce
-                large annual losses from no-shows.</p>
-              <div class="card-tags">
-                <span>XGBoost</span><span>Python</span><span>Palantir Foundry</span><span>Matplotlib</span>
-                <span>SKLearn</span>
-              </div>
-              <a href="#" class="card-link">View Details →</a>
-            </article>
-
-            <article class="project-card">
-              <div class="card-badge">ML · Diagnostics</div>
-              <h3>IBD Diagnosis AI Model</h3>
-              <p>Classification model identifying Irritable Bowel Disease from 700+ breath-sample
-                biomarkers, achieving 95% diagnostic accuracy. Used PCA to reduce feature count to 99
-                and SMOTE to address class imbalance.</p>
-              <div class="card-tags">
-                <span>scikit-learn</span><span>PCA</span><span>SMOTE</span><span>Matplotlib</span>
-                <span>Seaborn</span>
-              </div>
-              <a href="#" class="card-link">View Details →</a>
-            </article>
-
-            <article class="project-card">
-              <div class="card-badge">Full-Stack · AI</div>
-              <h3>Theo Health</h3>
-              <p>AI-powered health journal for chronic disease patients, with voice and text symptom
-                logging and a physician portal. Built the backend and AI layer using Firebase/Firestore,
-                React Native, and the Gemini API.</p>
-              <div class="card-tags">
-                <span>React Native</span><span>Firebase</span><span>Gemini API</span>
-              </div>
-              <a href="#" class="card-link">View Details →</a>
-            </article>
-
-            <article class="project-card">
-              <div class="card-badge">CV · Autonomy</div>
-              <h3>Autonomous Driving Object Detection</h3>
-              <p>Developed an object detection system for still-image autonomous driving scenarios
-                as part of an Inspirit AI program.</p>
-              <div class="card-tags">
-                <span>TensorFlow</span><span>Computer Vision</span><span>Python</span>
-              </div>
-              <a href="#" class="card-link">View Details →</a>
-            </article>
-
-            <article class="project-card">
-              <div class="card-badge">Future</div>
-              <h3>& More to Come!</h3>
-              <p>Ask me about my upcoming projects</p>
-              <div class="card-tags">
-                <span>TensorFlow</span><span>Computer Vision</span><span>Python</span>
-              </div>
-              <a href="#" class="card-link">View Details →</a>
-            </article>
-
-          </div>
-        </div>
-        <button class="carousel-btn carousel-btn--next" id="nextBtn" aria-label="Next">&#8250;</button>
-      </div>
-      <div class="carousel-dots" id="carouselDots"></div>
+      <!-- JS injects: section-title + coverflow-stage + dots + hint -->
     </div>
   </section>
 
@@ -190,8 +158,8 @@
           <h3>Languages</h3>
           <div class="skill-tags">
             <span>Python</span><span>C</span><span>C++</span><span>Rust</span>
-            <span>R</span><span>Java</span><span>Arduino</span><span>Shell Scripting</span>
-            <span>MATLAB</span><span>SQL</span>
+            <span>R</span><span>Java</span><span>Arduino</span><span>MATLAB</span><span>Shell Scripting</span>
+            <span>SQL</span>
           </div>
         </div>
 
@@ -210,7 +178,7 @@
           <div class="skill-tags">
             <span>Palantir Foundry</span><span>Azure Databricks</span><span>Snowflake</span>
             <span>Tableau</span><span>Firebase</span><span>Git</span><span>Linux/CLI</span>
-            <span>Docker/Containers</span>
+            <span>Docker/Containers</span><span>GitHub</span><span>JetBrains Suite</span>
           </div>
         </div>
 
@@ -219,6 +187,7 @@
           <div class="skill-tags">
             <span>Soldering / De-soldering</span><span>Electronics Repair</span>
             <span>Integrated Systems</span><span>Schematic Reading</span>
+            <span>PC / Server Building</span><span>HomeLab</span>
           </div>
         </div>
 
@@ -249,7 +218,7 @@
       <div class="contact-cards">
         <a href="mailto:vedantrakhonde@gmail.com" class="contact-card">
           <span class="contact-icon">📧</span>
-          <span><span class="__cf_email__" data-cfemail="vedantrakhonde@gmail.com">eMail Me!</span></span>
+          <span>eMail Me!</span>
         </a>
         <a href="https://www.linkedin.com/in/vedant-rakhonde-a5362a314/" target="_blank" rel="noopener" class="contact-card">
           <span class="contact-icon">🪪</span>
@@ -260,12 +229,13 @@
   </section>
 
   <footer class="footer">
-    <p>© 2026 Vedant Rakhonde · Built with ❤️</p>
+    <p>© 2026 Vedant Rakhonde · All Rights Reserved.</p>
     <p class="footer-time">
       <span class="time-dot" id="timeDot"></span>
       My Current Time: <span id="estClock">--:--:-- --</span>
     </p>
   </footer>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="script.js"></script>
 </body>
