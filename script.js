@@ -2,6 +2,7 @@
    Theme Toggle
    ============================================================ */
 const html = document.documentElement;
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const themeToggle = document.getElementById('themeToggle');
 const themeIcon = themeToggle.querySelector('.theme-icon');
 
@@ -123,9 +124,9 @@ window.addEventListener('DOMContentLoaded', function () {
 /* ============================================================
    Experience Dot Field
    ============================================================ */
-(function () {
-  const section = document.getElementById('experience');
-  const canvas = document.getElementById('experienceDotField');
+function initDotField(sectionId, canvasId) {
+  const section = document.getElementById(sectionId);
+  const canvas = document.getElementById(canvasId);
   if (!section || !canvas) return;
 
   const ctx = canvas.getContext('2d');
@@ -199,11 +200,16 @@ window.addEventListener('DOMContentLoaded', function () {
       }
     }
 
-    rafId = requestAnimationFrame(draw);
+    if (!prefersReducedMotion) {
+      rafId = requestAnimationFrame(draw);
+    }
   }
 
   resize();
-  rafId = requestAnimationFrame(draw);
+  draw(0);
+  if (!prefersReducedMotion) {
+    rafId = requestAnimationFrame(draw);
+  }
 
   const ro = new ResizeObserver(resize);
   ro.observe(section);
@@ -218,7 +224,11 @@ window.addEventListener('DOMContentLoaded', function () {
     ro.disconnect();
     mo.disconnect();
   });
-})();
+}
+
+initDotField('experience', 'experienceDotField');
+initDotField('about', 'heroDotField');
+initDotField('contact', 'contactDotField');
 
 /* ============================================================
    Three.js DNA helix
@@ -313,13 +323,18 @@ window.addEventListener('DOMContentLoaded', function () {
 
   let tick = 0;
   function animate() {
+    if (prefersReducedMotion) return;
     requestAnimationFrame(animate);
     tick += 0.004;
     spinGroup.rotation.y = tick;
     spinGroup.rotation.x = Math.sin(tick / 2) * 0.1;
     renderer.render(scene, camera);
   }
-  animate();
+  if (prefersReducedMotion) {
+    renderer.render(scene, camera);
+  } else {
+    animate();
+  }
 
   window.addEventListener('resize', () => {
     const w = mount.clientWidth, h = mount.clientHeight;
@@ -415,6 +430,7 @@ window.addEventListener('DOMContentLoaded', function () {
   const stage = document.getElementById('cfStage');
   const dots  = document.getElementById('cfDots');
   const hint  = document.getElementById('cfHint');
+  stage.tabIndex = 0;
   const contactSection = document.getElementById('contact');
   const contactButtons = Array.from(document.querySelectorAll('.contact-card'));
   let contactHighlightTimers = [];
@@ -537,11 +553,23 @@ window.addEventListener('DOMContentLoaded', function () {
 
   /* ── Layout ── */
   function layout() {
+    const isMobile = window.innerWidth <= 640;
     items.forEach((el, i) => {
       let rel = i - active;
       const half = items.length / 2;
       if (rel > half) rel -= items.length;
       if (rel < -half) rel += items.length;
+
+      if (isMobile) {
+        el.style.left      = '0';
+        el.style.zIndex    = rel === 0 ? '10' : '0';
+        el.style.opacity   = rel === 0 ? '1'  : '0';
+        el.style.width     = '100%';
+        el.style.transform = rel === 0 ? 'none' : `translateX(${rel > 0 ? '100%' : '-100%'})`;
+        el.classList.toggle('cf-active', rel === 0);
+        return;
+      }
+
       const abs = Math.abs(rel);
       let tx, ry, sc, op, zi, w;
 
@@ -565,6 +593,7 @@ window.addEventListener('DOMContentLoaded', function () {
         w = CARD_W_SIDE;
       }
 
+      el.style.left      = '';
       el.style.zIndex    = zi;
       el.style.opacity   = op;
       el.style.width     = w + 'px';
@@ -585,6 +614,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
   /* ── Auto-scroll ── */
   function startAuto() {
+    if (prefersReducedMotion) return;
     stopAuto();
     autoTimer = setInterval(() => { if (!hoverPaused) goTo(active + 1); }, AUTO_DELAY);
   }
@@ -626,7 +656,9 @@ window.addEventListener('DOMContentLoaded', function () {
   });
 
   /* ── Keyboard ── */
-  document.addEventListener('keydown', e => {
+  stage.addEventListener('keydown', e => {
+    const target = e.target;
+    if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) return;
     if (e.key === 'ArrowRight') { goTo(active + 1); pauseAndResume(); }
     if (e.key === 'ArrowLeft')  { goTo(active - 1); pauseAndResume(); }
   });
@@ -636,4 +668,70 @@ window.addEventListener('DOMContentLoaded', function () {
   startAuto();
   window.addEventListener('resize', layout);
 
+})();
+
+/* ============================================================
+   Skills Continuous Carousel
+   ============================================================ */
+(function () {
+  const track = document.querySelector('#skills .skills-track');
+  if (!track) return;
+
+  const originals = Array.from(track.children);
+  if (!originals.length) return;
+
+  function appendCloneSet() {
+    originals.forEach(card => {
+      const clone = card.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      clone.dataset.skillsClone = '1';
+      track.appendChild(clone);
+    });
+  }
+
+  // Ensure we have at least one repeated set so stride can be measured.
+  if (track.children.length < originals.length * 2) {
+    appendCloneSet();
+  }
+
+  function getStrideWidth() {
+    const first = track.children[0];
+    const firstClone = track.children[originals.length];
+    if (!first || !firstClone) return 0;
+    const stride = firstClone.offsetLeft - first.offsetLeft;
+    return Number.isFinite(stride) ? stride : 0;
+  }
+
+  function ensureLoopCoverage(strideWidth) {
+    if (!strideWidth) return;
+    const setCount = Math.max(2, Math.ceil(window.innerWidth / strideWidth) + 1);
+    let existingSets = Math.floor(track.children.length / originals.length);
+
+    while (existingSets < setCount) {
+      appendCloneSet();
+      existingSets += 1;
+    }
+  }
+
+  function updateLoopMetrics() {
+    let strideWidth = getStrideWidth();
+    if (!strideWidth) return;
+
+    ensureLoopCoverage(strideWidth);
+
+    // Recompute after possible clone appends and layout changes.
+    strideWidth = getStrideWidth();
+    if (!strideWidth) return;
+
+    const pxPerSecond = window.innerWidth <= 640 ? 72 : 92;
+    track.style.setProperty('--skills-loop-width', `${strideWidth}px`);
+    track.style.setProperty('--skills-speed', `${strideWidth / pxPerSecond}s`);
+  }
+
+  updateLoopMetrics();
+  window.addEventListener('load', updateLoopMetrics, { passive: true });
+  window.addEventListener('resize', updateLoopMetrics, { passive: true });
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(updateLoopMetrics).catch(() => {});
+  }
 })();

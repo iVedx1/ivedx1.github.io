@@ -4,6 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vedant Rakhonde</title>
+  <meta name="description" content="Portfolio of Vedant Rakhonde: AI/ML, healthcare data science, software engineering, and hardware projects." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://ivedx1.github.io/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Vedant Rakhonde" />
+  <meta property="og:description" content="AI/ML and healthcare-focused engineering portfolio." />
+  <meta property="og:url" content="https://ivedx1.github.io/" />
+  <meta property="og:image" content="https://ivedx1.github.io/assets/me.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Vedant Rakhonde" />
+  <meta name="twitter:description" content="AI/ML and healthcare-focused engineering portfolio." />
+  <meta name="twitter:image" content="https://ivedx1.github.io/assets/me.png" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any">
   <link rel="stylesheet" href="styles.css" />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet" />
@@ -46,13 +58,14 @@
   <!-- HERO -->
   <header class="hero" id="about">
     <div id="dnaMount" class="dna-canvas"></div>
+    <canvas id="heroDotField" class="hero-dot-field" aria-hidden="true"></canvas>
     <div class="hero-content">
       <img class="hero-avatar" src="assets/me.png" alt="Vedant Rakhonde" />
       <h1 class="hero-name">Vedant Rakhonde <span class="status-dot" title="Available"></span></h1>
       <p class="hero-tagline">Honors CSE + Pre-Med @ Ohio State &nbsp;&rarr;&nbsp; AI/ML &nbsp;·&nbsp; Healthcare &nbsp;·&nbsp; Hardware</p>
       <p class="hero-bio">
         I build computational tools at the intersection of <b>medicine</b> and <b>technology</b>, from clinical ML pipelines to biosignal
-        analysis to embedded systems.</br></br>
+        analysis to embedded systems.<br><br>
         When I'm not building, you can find me repairing electronics, listening to Zappa, or outstaying my welcome in a cafe.
       </p>
       <div class="hero-actions">
@@ -64,7 +77,7 @@
   </header>
 
   <!-- EXPERIENCE -->
-  <section class="section" id="experience">
+  <section class="section" id="experience" data-section-label="Experience">
     <canvas id="experienceDotField" class="experience-dot-field" aria-hidden="true"></canvas>
     <div class="container">
       <h2 class="section-title">Experience</h2>
@@ -97,7 +110,7 @@
         <div class="timeline-item">
           <button class="timeline-emoji-btn" type="button" aria-label="AI business operator">💪</button>
           <div class="timeline-card">
-            <span class="timeline-date">Ongoing</span>
+            <span class="timeline-date">2025 - Ongoing</span>
             <h3>Sole Owner / Operator</h3>
             <p class="timeline-org">ReachFlow AI</p>
             <p>Building and deploying AI-powered automation systems - chatbots and phone
@@ -129,7 +142,7 @@
         <div class="timeline-item">
           <button class="timeline-emoji-btn" type="button" aria-label="Electronics repair experience">🛠️</button>
           <div class="timeline-card">
-            <span class="timeline-date">2021 – Present</span>
+            <span class="timeline-date">2021 - Ongoing</span>
             <h3>Independent Electronics Repair</h3>
             <p class="timeline-org">Self-Employed</p>
             <p>Repairing and building computers and integrated systems, with a focus on laptop
@@ -142,17 +155,18 @@
   </section>
 
   <!-- PROJECTS — rebuilt entirely by script.js coverflow block -->
-  <section class="section section-alt" id="projects">
+  <section class="section section-alt" id="projects" data-section-label="Projects">
     <div class="container">
       <!-- JS injects: section-title + coverflow-stage + dots + hint -->
     </div>
   </section>
 
   <!-- SKILLS -->
-  <section class="section" id="skills">
+  <section class="section" id="skills" data-section-label="Skills">
     <div class="container">
       <h2 class="section-title">Skills</h2>
-      <div class="skills-grid">
+      <div class="skills-carousel" aria-label="Scrolling skills carousel">
+      <div class="skills-grid skills-track">
 
         <div class="skill-category">
           <h3>Languages</h3>
@@ -164,12 +178,13 @@
         </div>
 
         <div class="skill-category">
-          <h3>ML / Data</h3>
+          <h3>AI / ML / Data</h3>
           <div class="skill-tags">
             <span>XGBoost</span><span>TensorFlow</span><span>scikit-learn</span>
             <span>Pandas</span><span>NumPy</span><span>Seaborn</span>
             <span>PCA</span><span>SMOTE</span><span>t-SNE</span>
-            <span>Propensity Score Matching</span>
+            <span>Propensity Score Matching</span><span>MCP</span>
+            <span>LLM Fine-Tuning</span>
           </div>
         </div>
 
@@ -179,6 +194,7 @@
             <span>Palantir Foundry</span><span>Azure Databricks</span><span>Snowflake</span>
             <span>Tableau</span><span>Firebase</span><span>Git</span><span>Linux/CLI</span>
             <span>Docker/Containers</span><span>GitHub</span><span>JetBrains Suite</span>
+            <span>Xcode</span>
           </div>
         </div>
 
@@ -186,17 +202,18 @@
           <h3>Hardware</h3>
           <div class="skill-tags">
             <span>Soldering / De-soldering</span><span>Electronics Repair</span>
-            <span>Integrated Systems</span><span>Schematic Reading</span>
-            <span>PC / Server Building</span><span>HomeLab</span>
+            <span>HomeLab</span><span>Integrated Systems</span>
+            <span>Schematic Reading</span><span>PC / Server Building</span>
           </div>
         </div>
 
+      </div>
       </div>
     </div>
   </section>
 
   <!-- EDUCATION -->
-  <section class="section section-alt" id="education">
+  <section class="section section-alt" id="education" data-section-label="Edu">
     <div class="container">
       <h2 class="section-title">Education</h2>
       <div class="edu-card">
@@ -212,16 +229,17 @@
 
   <!-- CONTACT -->
   <section class="section" id="contact">
+    <canvas id="contactDotField" class="contact-dot-field" aria-hidden="true"></canvas>
     <div class="container contact-container">
       <h2 class="section-title">Get In Touch</h2>
       <p class="contact-intro">I'm always open to new opportunities, collaborations, or just a conversation. Feel free to reach out.</p>
       <div class="contact-cards">
         <a href="mailto:vedantrakhonde@gmail.com" class="contact-card">
           <span class="contact-icon">📧</span>
-          <span>eMail Me!</span>
+          <span>Email</span>
         </a>
         <a href="https://www.linkedin.com/in/vedant-rakhonde-a5362a314/" target="_blank" rel="noopener" class="contact-card">
-          <span class="contact-icon">🪪</span>
+          <span class="contact-icon">💼</span>
           <span>LinkedIn</span>
         </a>
       </div>
