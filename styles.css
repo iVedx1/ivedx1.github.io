@@ -907,12 +907,9 @@ h2 {
   width: 64px;
   height: 64px;
   border-radius: 12px;
-  background: #ba0c2f;
-  color: #fff;
-  font-weight: 800;
-  font-size: 1rem;
-  display: grid;
-  place-items: center;
+  object-fit: contain;
+  object-position: center;
+  display: block;
   flex-shrink: 0;
 }
 
