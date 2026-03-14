@@ -148,10 +148,15 @@ h2 {
 .nav-links a {
   font-size: .9rem;
   font-weight: 500;
+  font-variation-settings: 'wght' 500;
   color: var(--text-muted);
-  transition: color var(--transition);
+  transition: color var(--transition), font-variation-settings 0.3s ease;
 }
 .nav-links a:hover { color: var(--accent); text-decoration: none; }
+.nav-links a.active {
+  font-variation-settings: 'wght' 700;
+  color: var(--text);
+}
 
 .theme-toggle {
   background: var(--bg-alt);

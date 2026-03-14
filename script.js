@@ -102,6 +102,9 @@ window.addEventListener('DOMContentLoaded', function () {
     const activeLink = document.querySelector(`.nav-links a[href="#${activeId}"]`);
     if (!activeLink) return;
 
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    activeLink.classList.add('active');
+
     const navEl2   = navBar;
     const navRect  = navEl2.getBoundingClientRect();
     const linkRect = activeLink.getBoundingClientRect();
